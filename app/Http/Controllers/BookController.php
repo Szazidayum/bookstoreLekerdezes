@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -40,5 +41,37 @@ class BookController extends Controller
     {	
         $copies = Book::with('copy_c')->where('title','=', $title)->get();
         return $copies;
+    }
+
+    //2. Csoportosítsd szerzőnként a könyveket (nem példányokat) a szerzők ABC szerinti növekvő sorrendjében!
+    public function szerzokABC()
+    {
+        $konyvek = DB::table('books as b')
+        ->select('b.book_id', 'b.author', 'b.title')
+        ->orderBy('b.author')
+        ->get();
+        return $konyvek;
+    }
+
+    //3. Határozd meg a könyvtár nyilvántartásában legalább 2 könyvvel rendelkező szerzőket!
+    public function moreThan2()
+    {
+        $konyvek = DB::table('books as b')
+        ->selectRaw('count(title),b.author')
+        ->groupBy('b.author')
+        ->having('count(title)', '>', 1)
+        ->get();
+        return $konyvek;
+    }
+
+    //4. A B betűvel kezdődő szerzőket add meg!
+    public function szerzokB()
+    {
+        $konyvek= DB::table('books')
+        ->select('author')
+        ->whereRaw("author like 'B%'")
+        ->get();
+
+        return $konyvek;
     }
 }

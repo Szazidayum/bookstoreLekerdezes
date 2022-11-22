@@ -24,6 +24,11 @@ return new class extends Migration
         });
 
         Lending::create(['user_id'=> 2, 'copy_id' => 1, 'start'=> '2022-10-06']);
+        Lending::create(['user_id'=> 1, 'copy_id' => 3, 'start'=> '2022-10-06']);
+        Lending::create(['user_id'=> 1, 'copy_id' => 2, 'start'=> '2022-11-06']);
+        Lending::create(['user_id'=> 2, 'copy_id' => 3, 'start'=> '2022-12-02']);
+        Lending::create(['user_id'=> 3, 'copy_id' => 1, 'start'=> '2021-10-20']);
+        Lending::create(['user_id'=> 3, 'copy_id' => 3, 'start'=> '2022-02-18']);
     }
 
     /**
