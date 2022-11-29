@@ -5,6 +5,7 @@ use App\Http\Controllers\CopyController;
 use App\Http\Controllers\LendingController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
+use App\Models\Lending;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,13 @@ Route::middleware( ['admin'])->group(function () {
     Route::get('/copy/list', [CopyController::class, 'listView']); 
 });
 
+//LIBRARIAN
+//könyvtáros jogosultságok
+Route::middleware( ['librarian'])->group(function () {
+    Route::get('/api/user_reservation', [ReservationController::class, 'userReservation']);
+    Route::get('/api/more_lending/{db}', [LendingController::class, 'moreLendings']);
+});
+
 //SIMPLE USER
 Route::middleware(['auth.basic'])->group(function () {
     
@@ -57,6 +65,8 @@ Route::middleware(['auth.basic'])->group(function () {
 
     //Lekérdezések
     Route::get('/api/user_reservation', [ReservationController::class, 'userReservation']);
+    Route::get('/api/user_older/{day}', [ReservationController::class, 'older']);
+    Route::get('/api/more_lending/{db}', [LendingController::class, 'moreLendings']);
 });
 //csak a tesztelés miatt van "kint"
 Route::patch('/api/users/password/{id}', [UserController::class, 'updatePassword']);
@@ -78,6 +88,7 @@ Route::get('api/kolcsonzAdat/{copy_id}', [CopyController::class, 'kolcsonzesiAda
 //Books
 Route::get('api/szerzok_abc', [BookController::class, 'szerzokABC']);
 Route::get('api/more_than_2', [BookController::class, 'moreThan2']);
-Route::get('api/author_b', [BookController::class, 'szerzokB']);
+Route::get('api/author_with/{text}', [BookController::class, 'szerzokBetűvel']);
+
 
 require __DIR__.'/auth.php';

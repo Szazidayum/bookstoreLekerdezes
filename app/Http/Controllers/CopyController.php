@@ -122,5 +122,15 @@ class CopyController extends Controller
     }
 
     //validáció
+
+    //Admin tudja törölni a selejtezett könyveket
+    public function waste(){
+        $waste_copie = DB::table('copies')
+        ->select('copy_id')
+        ->where('status', 2)
+        ->get();
+    }
+    
+
     
 }

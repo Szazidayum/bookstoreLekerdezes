@@ -65,13 +65,15 @@ class BookController extends Controller
     }
 
     //4. A B betűvel kezdődő szerzőket add meg!
-    public function szerzokB()
+    public function szerzokB($text)
     {
         $konyvek= DB::table('books')
         ->select('author')
-        ->whereRaw("author like 'B%'")
+        ->whereRaw("author like \"${text}%\"")
         ->get();
 
         return $konyvek;
     }
+
+    
 }

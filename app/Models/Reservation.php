@@ -25,7 +25,9 @@ class Reservation extends Model
         'user_id',
         'book_id',
         'start',
-        'messages'
+        'messages',
+        'message_date',
+        'status'
     ];
 
     public function book_c()

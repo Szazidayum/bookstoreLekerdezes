@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -28,6 +30,9 @@ class ReservationController extends Controller
         $reservation->user_id = $request->user_id;
         $reservation->book_id = $request->book_id;
         $reservation->start = $request->start;
+        $reservation->message = $request->message;
+        $reservation->message_date = $request->message_date;
+        $reservation->status = $request->status;
         $reservation->save();
     }
 
@@ -37,6 +42,9 @@ class ReservationController extends Controller
         $reservation->user_id = $request->user_id;
         $reservation->book_id = $request->book_id;
         $reservation->start = $request->start;
+        $reservation->message = $request->message;
+        $reservation->message_date = $request->message_date;
+        $reservation->status = $request->status;
         $reservation->save();
     }
 
@@ -46,6 +54,17 @@ class ReservationController extends Controller
     public function userReservation(){
         $reservation = Reservation::all()
         ->count();
+        return $reservation;
+    }
+
+    //A bejelentkezett felhasználó 3 napnál régebbi előjegyzéseit add meg
+    public function older($day){
+        $user = Auth::user();
+        $reservation = DB::table('reservation as r')
+        ->select('r.book_id', 'r.start')
+        ->where('r.user_id', $user->id)
+        ->whereRaw('DATEDIFF(CURRENT_DATE, r.start > ?', $day)
+        ->get();
         return $reservation;
     }
 

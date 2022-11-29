@@ -19,10 +19,14 @@ return new class extends Migration
             $table->foreignId('book_id')->references('book_id')->on('books');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->date("start");
-            $table->tinyInteger('messages')->nullable();
+            $table->boolean('messages')->default(0);
+            $table->date("message_date")->nullable();
+            $table->boolean("status")->default(0);
             $table->timestamps();
         });
     }
+
+   
 
     /**
      * Reverse the migrations.
