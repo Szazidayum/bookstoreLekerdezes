@@ -50,6 +50,17 @@ class ReservationController extends Controller
 
     //LEKÉRDEZÉS
 
+    //Kinek van előjegyzése?
+        public function reservUsers(){
+            $reservation = DB::table('reservation as r')
+            ->join('users as u', 'u.id', 'r.user_id')
+            ->selectRaw('u.name, u.email, count(*) as db')
+            ->groupBy('u.name', 'u.email')
+            ->having('db','>=',1)
+            ->get();
+            return $reservation;
+        }
+
     //1. Hány darab előjegyzése van a bejelentkezett felhasználónak?
     public function userReservation(){
         $reservation = Reservation::all()
