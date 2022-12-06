@@ -52,7 +52,7 @@ Route::middleware( ['admin'])->group(function () {
 Route::middleware( ['librarian'])->group(function () {
     Route::get('/api/user_reservation', [ReservationController::class, 'userReservation']);
     Route::get('/api/more_lending/{db}', [LendingController::class, 'moreLendings']);
-    Route::get('/api/delete_old_reservs', [ReservationController::class, 'deleteOldReservs']);
+    Route::delete('/api/delete_old_reservs', [ReservationController::class, 'deleteOldReservs']);
     Route::get('/api/reserv_users', [ReservationController::class, 'reservUsers']);
 });
 
@@ -100,6 +100,9 @@ Route::get('send_mail', [MailController::class, 'index']);
 //FILE FELTÖLTÉS
 Route::get('file_upload', [FileController::class, 'index']);
 Route::post('file_upload', [FileController::class, 'store'])->name('file.store');
+
+Route::patch('api/regebbi_tiznel', [ReservationController::class, 'regebbiTiznel']);
+Route::get('api/book_back_today', [LendingController::class, 'booksBackToday']);
 
 
 require __DIR__.'/auth.php';

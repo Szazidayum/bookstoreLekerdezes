@@ -71,7 +71,7 @@ class ReservationController extends Controller
     //A bejelentkezett felhasználó 3 napnál régebbi előjegyzéseit add meg
     public function older($day){
         $user = Auth::user();
-        $reservation = DB::table('reservation as r')
+        $reservation = DB::table('reservations as r')
         ->select('r.book_id', 'r.start')
         ->where('r.user_id', $user->id)
         ->whereRaw('DATEDIFF(CURRENT_DATE, r.start > ?', $day)
@@ -81,11 +81,20 @@ class ReservationController extends Controller
 
     //Admin tudja törölni a selejtezett könyveket
     public function deleteOldReservs(){
-        $reservation = DB::table('reservation')
+        $reservation = DB::table('reservations')
         ->where('status', 1)
         ->delete();
         return $reservation;
     }
 
+    //Rejtsd el azokat a rekordokat a reservations táblában, amikre jött üzenet, és 10 napnál régebbiek (status: 1) - patch kérés!
+    public function regebbiTiznel(){
+        $reservation = DB::table('reservations as r')
+        ->where('message', 1)
+        ->whereRaw('DATEDIFF(CURRENT_DATE, r.start > 10');
+        $reservation->status = 1;
+        $reservation->save();
+    }
 
+    
 }

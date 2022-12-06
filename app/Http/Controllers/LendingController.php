@@ -81,6 +81,14 @@ class LendingController extends Controller
         return $lendings;
     }
 
-    
-    // public function
+    //Listázd ki a mai napon visszahozott könyveket! - get kérés!   
+    public function booksBackToday(){
+        $books = DB::table('lendings as l')
+        ->join('copies as c', 'l.copy_id', '=', 'c.copy_id')
+        ->join('books as b', 'c.book_id', '=', 'b.book_id')
+        ->select('b.author', 'b.title')
+        ->whereRaw('DATEDIFF(CURRENT_DATE, l.end) = 0')
+        ->get();
+        return $books;
+    }
 }
