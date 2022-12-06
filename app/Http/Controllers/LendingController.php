@@ -72,7 +72,7 @@ class LendingController extends Controller
     // Bejelentkezett felhasználó azon kölcsönzéseit add meg (copy_id és db), ahol egy példányt legalább db-szor (paraméteres fg) kölcsönzött ki! (együtt)
     public function moreLendings($db){
         $user = Auth::user();
-        $lendings = DB::table('lending as l')
+        $lendings = DB::table('lendings as l')
         ->selectRaw('count(l.copy_id) as number_of_copies, l.copy_id')
         ->where('l.user_id', $user->id)
         ->groupBy('l.copy_id')

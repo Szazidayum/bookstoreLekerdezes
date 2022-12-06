@@ -50,6 +50,7 @@ Route::middleware( ['admin'])->group(function () {
 Route::middleware( ['librarian'])->group(function () {
     Route::get('/api/user_reservation', [ReservationController::class, 'userReservation']);
     Route::get('/api/more_lending/{db}', [LendingController::class, 'moreLendings']);
+    Route::get('/api/delete_old_reservs', [ReservationController::class, 'deleteOldReservs']);
 });
 
 //SIMPLE USER

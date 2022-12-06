@@ -68,7 +68,13 @@ class ReservationController extends Controller
         return $reservation;
     }
 
-    
+    //Admin tudja törölni a selejtezett könyveket
+    public function deleteOldReservs(){
+        $reservation = DB::table('reservation')
+        ->where('status', 1)
+        ->delete();
+        return $reservation;
+    }
 
 
 }
