@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('copy_id')->references('copy_id')->on('copies');
             $table->date("start");
+            $table->date("end")->nullable();
             $table->timestamps();
         });
 
@@ -29,6 +30,7 @@ return new class extends Migration
         Lending::create(['user_id'=> 2, 'copy_id' => 3, 'start'=> '2022-12-02']);
         Lending::create(['user_id'=> 3, 'copy_id' => 1, 'start'=> '2021-10-20']);
         Lending::create(['user_id'=> 3, 'copy_id' => 3, 'start'=> '2022-02-18']);
+        Lending::create(['user_id'=> 4, 'copy_id' => 4, 'start'=> '2022-02-18']);
     }
 
     /**

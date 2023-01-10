@@ -71,6 +71,7 @@ Route::middleware(['auth.basic'])->group(function () {
     Route::get('/api/user_reservation', [ReservationController::class, 'userReservation']);
     Route::get('/api/user_older/{day}', [ReservationController::class, 'older']);
     Route::get('/api/more_lending/{db}', [LendingController::class, 'moreLendings']);
+    Route::patch('/api/bring_back/{copy_id}/{start}', [LendingController::class, 'bringBack']);
 });
 //csak a tesztelés miatt van "kint"
 Route::patch('/api/users/password/{id}', [UserController::class, 'updatePassword']);
@@ -88,6 +89,8 @@ Route::get('api/hardcovered_copies/{hardcovered}', [CopyController::class, 'hard
 Route::get('api/kiadott_peldany/{publication}', [CopyController::class, 'kiadottPeldany']);
 Route::get('api/raktarban/{status}', [CopyController::class, 'raktarbanPeldany']);
 Route::get('api/kolcsonzAdat/{copy_id}', [CopyController::class, 'kolcsonzesiAdatok']);
+
+
 
 //Books
 Route::get('api/szerzok_abc', [BookController::class, 'szerzokABC']);

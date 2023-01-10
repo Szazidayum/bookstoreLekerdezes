@@ -91,4 +91,17 @@ class LendingController extends Controller
         ->get();
         return $books;
     }
+
+    public function bringBack($copy_id, $start)
+    {
+        //visszahozom a könyveket - patch!
+        $user = Auth::user();
+        $lending = LendingController::show($user->id, $copy_id, $start);
+        $lending->end = date(now());
+        $lending->save();
+        // DB::table('copies')
+        // ->where('copy_id', $copy_id)
+        // ->update(['status' => 0]);
+        DB::select('CALL toStore(?)', array($copy_id));
+    }
 }

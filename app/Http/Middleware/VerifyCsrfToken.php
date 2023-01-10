@@ -24,6 +24,7 @@ class VerifyCsrfToken extends Middleware
         'api/lendings/*/*/*',
         '/api/delete_old_reservs',
         '/api/regebbiTiznel',
-        '/api/book_back_today'
+        '/api/book_back_today',
+        '/api/bring_back/*/*'
     ];
 }
